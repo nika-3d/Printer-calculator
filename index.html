@@ -1,11 +1,106 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <title>3D Baskı Fiyat Hesaplama</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3D Baskı Fiyat Hesaplayıcı</title>
+  <style>
+    body {
+      background-color: #1e1e2f;
+      color: #f1f1f1;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 {
+      color: #00bfa6;
+      margin-bottom: 1rem;
+    }
+    .calculator {
+      background-color: #2a2a3d;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      max-width: 400px;
+      width: 100%;
+    }
+    label {
+      display: block;
+      margin: 1rem 0 0.3rem;
+    }
+    input, select {
+      width: 100%;
+      padding: 0.6rem;
+      border: none;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+      background-color: #3a3a50;
+      color: #fff;
+    }
+    button {
+      width: 100%;
+      padding: 0.8rem;
+      background-color: #00bfa6;
+      border: none;
+      border-radius: 0.5rem;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background-color: #009e8c;
+    }
+    .result {
+      margin-top: 1rem;
+      font-size: 1.2rem;
+      color: #ffd166;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
-  <h1>3D Baskı Hesaplama Uygulaması</h1>
-  <p>Buraya uygulama gelecektir.</p>
+  <h1>3D Baskı Fiyat Hesaplayıcı</h1>
+  <div class="calculator">
+    <label for="product">Ürün Adı:</label>
+    <input type="text" id="product" placeholder="Örnek: Anahtarlık" />
+
+    <label for="weight">Filament Gramı (g):</label>
+    <input type="number" id="weight" placeholder="Örn: 30" />
+
+    <label for="time">Baskı Süresi (saat):</label>
+    <input type="number" id="time" placeholder="Örn: 2" />
+
+    <label for="language">Dil Seçimi:</label>
+    <select id="language">
+      <option value="tr">Türkçe</option>
+      <option value="en">English</option>
+    </select>
+
+    <button onclick="calculatePrice()">Fiyatı Hesapla</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function calculatePrice() {
+      const weight = parseFloat(document.getElementById("weight").value);
+      const time = parseFloat(document.getElementById("time").value);
+      const language = document.getElementById("language").value;
+
+      if (isNaN(weight) || isNaN(time)) {
+        document.getElementById("result").innerText =
+          language === "tr" ? "Lütfen tüm alanları doldurun." : "Please fill all fields.";
+        return;
+      }
+
+      const price = (weight * 0.25) + (time * 5); // Basit formül
+
+      document.getElementById("result").innerText =
+        language === "tr" ? `Tahmini Fiyat: ₺${price.toFixed(2)}` : `Estimated Price: ₺${price.toFixed(2)}`;
+    }
+  </script>
 </body>
 </html>
